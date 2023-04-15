@@ -1,15 +1,9 @@
 package com.cookboy.cookboy.dao;
 
 import com.cookboy.cookboy.entity.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
 
-public interface UserDAO {
-    List<User> findAll();
+public interface UserDAO extends MongoRepository<User, String> {
 
-    User findById(int user_id);
-
-    User save(User user);
-
-    void deleteById(int user_id);
 }

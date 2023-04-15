@@ -2,6 +2,7 @@ package com.cookboy.cookboy.controller;
 
 import com.cookboy.cookboy.entity.User;
 import com.cookboy.cookboy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,55 +11,31 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @PostMapping("/users")
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+    @GetMapping("/users/{id}")
+    public User getUser(@PathVariable String id) {
+        return userService.getUser(id);
     }
 
     @GetMapping("/users")
-    public List<User> findAll() {
-        return userService.findAll();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    @GetMapping("/users/{user_id}")
-    public User findUserById(@PathVariable int user_id) {
-        User user = userService.findById(user_id);
-
-        if(user == null) {
-            throw new RuntimeException("User with id '" + user_id + "' not found.");
-        }
-
-        return user;
+    @PutMapping("/users/{id}")
+    public User updateUser(@PathVariable String id, @RequestBody User user) {
+        return userService.updateUser(id, user);
     }
 
-    @PostMapping("/users")
-    public User addUser(@RequestBody User user) {
-        user.setUserId(0);
-
-        User newUser = userService.save(user);
-
-        return newUser;
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
     }
-
-    @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
-        User newUser = userService.save(user);
-
-        return newUser;
-    }
-
-    @DeleteMapping("/users/{user_id}")
-    public String deleteUser(@PathVariable int user_id) {
-        User user = userService.findById(user_id);
-
-        if (user == null) {
-            throw new RuntimeException("User with id '" + user_id + "' does not exists.");
-        }
-
-        userService.deleteById(user_id);
-
-        return "User with id '" + user_id + "' has been deleted";
-    }
-
 }
