@@ -1,9 +1,11 @@
 package com.cookboy.cookboy.user;
 
+import com.cookboy.cookboy.recipe.Recipe;
 import jakarta.persistence.*;
 
 import java.util.Collection;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
