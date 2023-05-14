@@ -1,1 +1,37 @@
-<p>register works!</p>
+<div class="form-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+    <div class="forGroup">
+      <span>Jump into recipes world!</span>
+    </div>
+    <div class="formGroup">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" />
+        <label htmlFor="name">Adam</label>
+      </span>
+    </div>
+    <div class="formGroup">
+      <span class="p-float-label">
+        <input pInputText id="email" formControlName="email" />
+        <label htmlFor="email">example@email.com</label>
+      </span>
+    </div>
+    <div class="formGroup">
+      <span class="p-float-label">
+        <p-password id="password" formControlName="password" [feedback]="false"/>
+        <label htmlFor="password">password</label>
+      </span>
+    </div>
+    <div class="formGroup">
+      <span class="p-float-label">
+        <p-password id="cpassword" formControlName="cpassword"[feedback]="false"/>
+        <label htmlFor="cpassword">confirm password</label>
+      </span>
+    </div>
+    <div class="formGroup">
+      <p-button label="Submit" type="submit"></p-button>
+    </div>
+  </form>
+  <div class="toLogin">
+    Already signed in? <a routerLink="/login">Click here to log in.</a>
+  </div>
+</div>

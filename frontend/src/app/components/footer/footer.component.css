@@ -1,0 +1,8 @@
+:host {
+  justify-self: flex-end;
+}
+
+.footer-container {
+  display: flex;
+  height: 60px;
+}
