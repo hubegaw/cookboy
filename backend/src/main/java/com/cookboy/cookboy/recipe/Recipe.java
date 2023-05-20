@@ -36,6 +36,7 @@ public class Recipe {
     @Column(name="created_at")
     private Timestamp created_at;
 
-    @Column(name="owner_id")
-    private int ownerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    public User user;
 }

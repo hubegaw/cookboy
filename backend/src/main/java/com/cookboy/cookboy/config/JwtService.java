@@ -1,6 +1,7 @@
 package com.cookboy.cookboy.config;
 
 
+import com.cookboy.cookboy.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,7 +37,13 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        User user = (User) userDetails; // Assuming your User class extends UserDetails
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId()); // Add user id to claims
+        claims.put("role", user.getRole()); // Add user role to claims
+
+        return buildToken(claims, userDetails, jwtExpiration);
     }
 
     public String generateToken(
@@ -48,7 +55,9 @@ public class JwtService {
 
     public String generateRefreshToken(
             UserDetails userDetails
+
     ) {
+
         return buildToken(new HashMap<>(), userDetails, refreshExpiration);
     }
 
@@ -92,5 +101,13 @@ public class JwtService {
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public long getExpirationTime() {
+        return jwtExpiration;
+    }
+
+    public long getRefreshTokenExpirationTime() {
+        return refreshExpiration;
     }
 }

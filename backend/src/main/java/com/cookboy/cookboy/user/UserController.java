@@ -26,19 +26,4 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable int id) {
         return ResponseEntity.ok(service.getUser(id));
     }
-
-    @GetMapping("/{userId}/recipes/{id}")
-    public RecipeDTO getRecipeById(@PathVariable int id) {
-        return service.getRecipe(id);
-    }
-
-    @GetMapping("/{userId}/recipes")
-    public List<RecipeDTO> getRecipes(@PathVariable int userId) {
-        return service.getRecipes(userId);
-    }
-
-    @PostMapping("/{userId}/recipes")
-    public Recipe addRecipe(@RequestBody Recipe recipe) {
-        return service.addRecipe(recipe);
-    }
 }
