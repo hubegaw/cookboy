@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "ng-openapi-gen": "ng-openapi-gen",
+    "generate:api": "openapi-generator-cli generate -i frontend/src/app/config/api.yaml -g typescript-angular -o src/app/api",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -27,6 +29,7 @@
     "@angular-devkit/build-angular": "^16.0.0",
     "@angular/cli": "~16.0.0",
     "@angular/compiler-cli": "^16.0.0",
+    "@openapitools/openapi-generator-cli": "^2.6.0",
     "@types/jasmine": "~4.3.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",

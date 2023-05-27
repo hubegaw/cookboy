@@ -1,40 +1,35 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {MessageService} from "primeng/api";
-import {FormGroup} from "@angular/forms";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {FormGroup} from '@angular/forms';
+import {firstValueFrom} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-
-interface AuthResponseData {
-  kind: string;
-  idToken: string;
-  email: string;
+export interface AuthenticationResponse {
+  token: string;
   refreshToken: string;
-  expiresIn: string;
-  localId: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit{
-  constructor(private http: HttpClient,
-              private messageService: MessageService) { }
+export class AuthService {
+  constructor(private http: HttpClient) { }
 
-  ngOnInit() {
+  async loginPost(loginForm: FormGroup): Promise<AuthenticationResponse | null> {
+    const response = await this.http.post<AuthenticationResponse | null>('http://localhost:8080/api/v1/auth/authenticate', loginForm.value, {
+      observe: 'response'
+    }).pipe(
+      map(response => response.body || null)
+    );
+    return firstValueFrom(response);
   }
 
-  loginPost(loginForm: FormGroup) {
-    this.http.post('http://localhost:8080/api/v1/auth/authenticate', loginForm.value)
-      .subscribe(
-      (responseData) => {
-        console.log("sss");
-      });
-  }
-
-  RegisterPost(registerForm: FormGroup) {
-    this.http.post<AuthResponseData>('http://localhost:8080/api/v1/auth/register', registerForm.value).subscribe(
-      (responseData) => {
-        console.log("sss");
-      });
+  async RegisterPost(registerForm: FormGroup):  Promise<AuthenticationResponse | null> {
+    const response = await this.http.post<AuthenticationResponse | null>('http://localhost:8080/api/v1/auth/register', registerForm.value, {
+      observe: 'response'
+    }).pipe(
+      map(response => response.body || null)
+    );
+    return firstValueFrom(response);
   }
 }
