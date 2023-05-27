@@ -1,7 +1,6 @@
 package com.cookboy.cookboy.recipe;
 
 import com.cookboy.cookboy.dto.RecipeDTO;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,27 +16,37 @@ public class RecipeController {
 
     private final RecipeService service;
 
-    @GetMapping("/{userId}/recipes/{id}")
+    @GetMapping("/{id}")
     public RecipeDTO getRecipeById(@PathVariable int id) {
         return service.getRecipe(id);
     }
 
-    @GetMapping("/{userId}/recipes")
-    public List<RecipeDTO> getRecipes(@PathVariable int userId) {
-        return service.getRecipes(userId);
+    @GetMapping("/user/{userId}")
+    public List<RecipeDTO> getUserRecipes(@PathVariable int userId) {
+        return service.getUserRecipes(userId);
     }
 
-    @PostMapping("/{userId}/recipes")
+    @GetMapping
+    public List<RecipeDTO> getAllRecipes() {
+        return service.getAllRecipes();
+    }
+
+    @PostMapping
     public Recipe addRecipe(@RequestBody Recipe recipe) {
         return service.addRecipe(recipe);
     }
 
-    @DeleteMapping("/{userId}/recipes/{recipeId}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable int recipeId, HttpServletRequest request) {
+    @PutMapping
+    public Recipe updateRecipe(@RequestBody Recipe recipe) {
+        return service.addRecipe(recipe);
+    }
 
-        service.deleteRecipe(recipeId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteRecipe(@PathVariable int id) {
 
-        return ResponseEntity.status(HttpStatus.OK).body("Feedback deleted successfully");
+        service.deleteRecipe(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully");
     }
 
 }

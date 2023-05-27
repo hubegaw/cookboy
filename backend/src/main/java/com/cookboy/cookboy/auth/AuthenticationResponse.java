@@ -15,5 +15,6 @@ import java.util.List;
 public class AuthenticationResponse {
     private String token;
     private String refreshToken;
+    private int userId;
 
 }

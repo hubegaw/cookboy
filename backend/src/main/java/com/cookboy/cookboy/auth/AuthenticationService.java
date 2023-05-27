@@ -70,6 +70,7 @@ public class AuthenticationService {
                 .builder()
                 .token(jwtToken)
                 .refreshToken(refreshToken)
+                .userId(user.getId())
                 .build();
     }
 

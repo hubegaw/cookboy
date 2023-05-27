@@ -15,8 +15,15 @@ public class RecipeService {
 
     private final RecipeDTOMapper recipeDTOMapper;
 
-    public List<RecipeDTO> getRecipes(int id) {
+    public List<RecipeDTO> getUserRecipes(int id) {
         return recipeRepository.findByUserId(id)
+                .stream()
+                .map(recipeDTOMapper)
+                .collect(Collectors.toList());
+    }
+
+    public List<RecipeDTO> getAllRecipes() {
+        return recipeRepository.findAll()
                 .stream()
                 .map(recipeDTOMapper)
                 .collect(Collectors.toList());
