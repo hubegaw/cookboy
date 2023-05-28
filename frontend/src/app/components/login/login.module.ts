@@ -7,6 +7,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
 import {RouterLink} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [LoginComponent],
@@ -16,7 +17,8 @@ import {MessageService} from "primeng/api";
         ButtonModule,
         InputTextModule,
         PasswordModule,
-        RouterLink
+        RouterLink,
+        ToastModule
     ],
   providers: [MessageService]
 })

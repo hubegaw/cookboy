@@ -70,7 +70,6 @@ export class AuthService {
 
   public getUserId(): number {
     const token = this.getToken();
-    console.log(this.token);
     if (token) {
       const decoded: any = jwt_decode(token);
       return decoded.userId;

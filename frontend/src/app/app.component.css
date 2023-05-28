@@ -1,7 +1,15 @@
 .app-container {
+  display: flex;
   width: 100vw;
   height: 100vh;
-  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+app-footer {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  margin-top: auto;
 }

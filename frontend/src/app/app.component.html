@@ -1,5 +1,7 @@
 <div class="app-container">
-  <app-header></app-header>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <app-header *ngIf="!isLoginOrRegisterActive()"></app-header>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer *ngIf="!isLoginOrRegisterActive()"></app-footer>
 </div>

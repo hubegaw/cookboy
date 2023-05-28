@@ -3,6 +3,7 @@ import {FormGroup, UntypedFormBuilder, Validators} from "@angular/forms";
 import {AuthService} from "../../api";
 import {ApiService} from "../../services/api-service.service";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
     private readonly fb: UntypedFormBuilder,
     private authService: AuthService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -38,11 +40,10 @@ export class LoginComponent implements OnInit {
           (responseData) => {
             const token = responseData.token;
             this.authService.setToken(token);
-            this.apiService.setToken(token);
             this.router.navigate(['/cockpit']);
           },
           (error) => {
-            // Handle login error
+            this.messageService.add({severity: "Info", summary: "Info", detail: "Could not log in"})
           }
         );
     }

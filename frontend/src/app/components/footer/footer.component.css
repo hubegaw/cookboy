@@ -1,8 +1,26 @@
-:host {
-  justify-self: flex-end;
+.footer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 24px;
 }
 
-.footer-container {
+.footer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer li {
+  margin-right: 3vw;
+}
+
+.legal {
+  margin-left: auto;
+  padding: 5px;
+}
+
+.flexbox {
   display: flex;
-  height: 60px;
+
 }
