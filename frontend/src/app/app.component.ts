@@ -23,6 +23,6 @@ export class AppComponent {
   isLoginOrRegisterActive(): boolean {
     let currentRoute = this.router.url;
     currentRoute = currentRoute.substring(1);
-    return currentRoute === 'login' || currentRoute === 'register';
+    return currentRoute === 'login' || currentRoute === 'register' || currentRoute === 'error';
   }
 }

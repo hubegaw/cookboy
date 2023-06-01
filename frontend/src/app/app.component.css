@@ -7,9 +7,14 @@
   align-items: center;
 }
 
+.content {
+  padding: 20px;
+}
+
 app-footer {
   display: flex;
   height: 40px;
   width: 100%;
   margin-top: auto;
+  border-top: #BDBDBD 1px solid;
 }

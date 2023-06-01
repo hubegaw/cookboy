@@ -1,4 +1,30 @@
-<div>
-  {{recipes}}
+<div class="recipes-container">
+  <p-table [value]="recipes" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 5rem"></th>
+        <th pSortableColumn="title">Title <p-sortIcon field="title"></p-sortIcon></th>
+        <th pSortableColumn="portions">Portions <p-sortIcon field="portions"></p-sortIcon></th>
+        <th pSortableColumn="time">Time <p-sortIcon field="time"></p-sortIcon></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-recipe let-expanded="expanded">
+      <tr>
+        <td>
+          <button type="button" pButton pRipple [pRowToggler]="recipe" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+        </td>
+        <td>{{ recipe.title }}</td>
+        <td>{{ recipe.portions }}</td>
+        <td>{{ recipe.time }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-recipe>
+      <p-card>
+        <p class="m-0">
+          {{recipe.description}}
+        </p>
+      </p-card>
+    </ng-template>
+  </p-table>
 </div>
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>

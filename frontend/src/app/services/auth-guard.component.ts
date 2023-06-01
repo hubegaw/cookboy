@@ -1,11 +1,11 @@
-import {inject, Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
 import {ApiService} from "./api-service.service";
 
 @Injectable({
   providedIn: 'root'
 })
-class PermissionsService {
+export class AuthGuard {
 
   constructor(private router: Router,
               private apiService: ApiService) {}
@@ -19,6 +19,3 @@ class PermissionsService {
   }
 }
 
-export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
-  return inject(PermissionsService).canActivate(next, state);
-}

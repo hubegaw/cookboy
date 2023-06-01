@@ -43,9 +43,11 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/cockpit']);
           },
           (error) => {
-            this.messageService.add({severity: "Info", summary: "Info", detail: "Could not log in"})
+            this.messageService.add({severity: "error", summary: "Error", detail: "Could not log in"})
           }
         );
+    } else {
+      this.messageService.add({severity: "Info", summary: "Info", detail: "Fill all fields"})
     }
   }
 }

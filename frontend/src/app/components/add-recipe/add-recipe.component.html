@@ -1,35 +1,29 @@
 <div class="main-content">
-  <form class="recipe-container" action="/addRecipe" method="POST" ENCTYPE="multipart/form-data">
+  <form class="recipe-container" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
     <div class="tags">
       <span>Tags:</span>
-      <input type="text" id="tag" placeholder="#">
+      <input type="text" id="tag" pInputText formControlName="tags" placeholder="#">
     </div>
     <div class="recipe-info">
       <label for="time">time:
-        <input type="time"  id="time" name="time">
+        <input type="time" id="time" pInputText formControlName="time">
       </label>
       <label for="portions">portions:
-        <input type="number" id="portions" name="portions" min="0" max="99" maxlength="2">
+        <input type="number" id="portions" pInputNumber formControlName="portions" [min]="0" [max]="99">
       </label>
     </div>
     <div class="title">
       <label for="title">
-        <input id = "title" name="title" type="text" required placeholder="Title" minlength="3" maxlength="100">
+        <input id="title" name="title" pInputText formControlName="title" placeholder="Title">
       </label>
-    </div>
-    <div class="ingredients" id="ingredients">
-      <span>Ingredients</span>
-      <?php include('modules/new_ingredient.php') ?>
-      <div id="new-ingredients"></div>
-      <a href="javascript:new_ingredient()" id="add-ingredient">add ingredient</a>
     </div>
     <div class="description">
       <label for="description">
-        <textarea id="description" name="description" required placeholder="description" maxlength="3000" minlength="10"></textarea>
+        <textarea id="description" name="description" pInputTextarea formControlName="description" placeholder="Description"></textarea>
       </label>
     </div>
     <div id="save-btn-container">
-      <button type="submit" id="save-btn">Save</button>
+      <button type="submit" id="save-btn" pButton label="Save"></button>
     </div>
   </form>
 </div>
