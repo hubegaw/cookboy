@@ -37,13 +37,7 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        User user = (User) userDetails; // Assuming your User class extends UserDetails
-
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId()); // Add user id to claims
-        claims.put("role", user.getRole()); // Add user role to claims
-
-        return buildToken(claims, userDetails, jwtExpiration);
+        return buildToken(new HashMap<>(), userDetails, jwtExpiration);
     }
 
     public String generateToken(
@@ -89,6 +83,10 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
+    public int extractUserId(String token) {
+        return extractClaim(token, claims -> claims.get("userId", Integer.class));
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
@@ -103,11 +101,4 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public long getExpirationTime() {
-        return jwtExpiration;
-    }
-
-    public long getRefreshTokenExpirationTime() {
-        return refreshExpiration;
-    }
 }

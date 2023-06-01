@@ -20,6 +20,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -60,7 +62,11 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
 
-        var jwtToken = jwtService.generateToken(user);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId()); // Add user id to claims
+        claims.put("role", user.getRole()); // Add user role to claims
+
+        var jwtToken = jwtService.generateToken(claims, user);
         var refreshToken = jwtService.generateRefreshToken(user);
 
         revokeAllUserTokens(user);
@@ -70,7 +76,6 @@ public class AuthenticationService {
                 .builder()
                 .token(jwtToken)
                 .refreshToken(refreshToken)
-                .userId(user.getId())
                 .build();
     }
 
@@ -118,11 +123,11 @@ public class AuthenticationService {
                 var accessToken = jwtService.generateToken(userDetails);
 
 
-                var authReponse = AuthenticationResponse.builder()
+                var authResponse = AuthenticationResponse.builder()
                         .token(accessToken)
                         .refreshToken(refreshToken)
                         .build();
-                new ObjectMapper().writeValue(response.getOutputStream(), authReponse);
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
     }

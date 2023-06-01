@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200",
+        allowCredentials = "true", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
+        allowedHeaders = {"*"})
 @RestController
 @RequestMapping("/api/v1/recipes")
 @RequiredArgsConstructor
 public class RecipeController {
 
     private final RecipeService service;
-
     @GetMapping("/{id}")
     public RecipeDTO getRecipeById(@PathVariable int id) {
         return service.getRecipe(id);
@@ -32,21 +33,23 @@ public class RecipeController {
     }
 
     @PostMapping
-    public Recipe addRecipe(@RequestBody Recipe recipe) {
-        return service.addRecipe(recipe);
+    public ResponseEntity<Boolean> addRecipe(@RequestBody Recipe recipe, @RequestHeader("Authorization") String token) {
+        service.addRecipe(recipe, token);
+        return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 
     @PutMapping
-    public Recipe updateRecipe(@RequestBody Recipe recipe) {
-        return service.addRecipe(recipe);
+    public ResponseEntity<Boolean> updateRecipe(@RequestBody Recipe recipe) {
+        service.updateRecipe(recipe);
+        return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable int id) {
+    public ResponseEntity<Boolean> deleteRecipe(@PathVariable int id) {
 
         service.deleteRecipe(id);
 
-        return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 
 }
